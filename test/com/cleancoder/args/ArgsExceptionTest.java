@@ -34,11 +34,11 @@ public class ArgsExceptionTest extends TestCase {
     ArgsException e = new ArgsException(MISSING_DOUBLE, 'x', null);
     assertEquals("Could not find double parameter for -x.", e.errorMessage());
   }
-
   public void testMissingMapMessage() throws Exception {
     ArgsException e = new ArgsException(MISSING_MAP, 'x', null);
     assertEquals("Could not find map string for -x.", e.errorMessage());
   }
+
 
   public void testMalformedMapMessage() throws Exception {
     ArgsException e = new ArgsException(MALFORMED_MAP, 'x', null);
@@ -49,7 +49,10 @@ public class ArgsExceptionTest extends TestCase {
     ArgsException e = new ArgsException(INVALID_ARGUMENT_NAME, '#', null);
     assertEquals("'#' is not a valid argument name.", e.errorMessage());
   }
-
+  public void testExtraArguments() throws Exception{
+    ArgsException e = new ArgsException(INVALID_EXTRA_ARGS);
+    assertEquals("Entered extra args.", e.errorMessage());
+  }
   public void testInvalidFormat() throws Exception {
     ArgsException e = new ArgsException(INVALID_ARGUMENT_FORMAT, 'x', "$");
     assertEquals("'$' is not a valid argument format.", e.errorMessage());

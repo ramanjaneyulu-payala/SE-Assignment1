@@ -227,20 +227,28 @@ public class ArgsTest {
 
   @Test
   public void testExtraArguments() throws Exception {
-    Args args = new Args("x,y*", new String[]{"-x", "-y", "alpha", "beta"});
-    assertTrue(args.getBoolean('x'));
-    assertEquals("alpha", args.getString('y'));
-    assertEquals(3, args.nextArgument());
+    try{
+     new Args("x,y*", new String[]{"-x", "-y", "alpha", "beta"});
+    } catch(ArgsException e){
+      assertEquals(e.getErrorCode(),INVALID_EXTRA_ARGS);
+    }
+//    assertTrue(args.getBoolean('x'));
+//    assertEquals("alpha", args.getString('y'));
+//    assertEquals(3, args.nextArgument());
   }
 
   @Test
   public void testExtraArgumentsThatLookLikeFlags() throws Exception {
-    Args args = new Args("x,y", new String[]{"-x", "alpha", "-y", "beta"});
-    assertTrue(args.has('x'));
-    assertFalse(args.has('y'));
-    assertTrue(args.getBoolean('x'));
-    assertFalse(args.getBoolean('y'));
-    assertEquals(1, args.nextArgument());
+    try {
+      new Args("x,y", new String[]{"-x", "alpha", "-y", "beta"});
+    } catch (ArgsException e){
+      assertEquals(e.getErrorCode(),INVALID_EXTRA_ARGS);
+    }
+//    assertTrue(args.has('x'));
+//    assertFalse(args.has('y'));
+//    assertTrue(args.getBoolean('x'));
+//    assertFalse(args.getBoolean('y'));
+//    assertEquals(1, args.nextArgument());
   }
 
 }

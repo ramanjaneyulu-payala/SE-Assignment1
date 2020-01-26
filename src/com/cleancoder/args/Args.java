@@ -58,7 +58,7 @@ public class Args {
         parseArgumentCharacters(argString.substring(1));
       } else {
         currentArgument.previous();
-        break;
+        throw new ArgsException(INVALID_EXTRA_ARGS);
       }
     }
   }

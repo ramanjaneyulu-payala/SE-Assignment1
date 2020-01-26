@@ -74,6 +74,10 @@ public class ArgsException extends Exception {
         return String.format("Could not find map string for -%c.", errorArgumentId);
       case MALFORMED_MAP:
         return String.format("Map string for -%c is not of form k1:v1,k2:v2...", errorArgumentId);
+      case INVALID_EXTRA_ARGS:
+        return String.format("Entered extra args.");
+      case INVALID_OVER_USAGE:
+        return String.format("over usage of same symbol");
     }
     return "";
   }
@@ -82,5 +86,6 @@ public class ArgsException extends Exception {
     OK, INVALID_ARGUMENT_FORMAT, UNEXPECTED_ARGUMENT, INVALID_ARGUMENT_NAME,
     MISSING_STRING,
     MISSING_INTEGER, INVALID_INTEGER,
-    MISSING_DOUBLE, MALFORMED_MAP, MISSING_MAP, INVALID_DOUBLE}
+    MISSING_DOUBLE, MALFORMED_MAP, MISSING_MAP, INVALID_DOUBLE,
+    INVALID_EXTRA_ARGS, INVALID_OVER_USAGE}
 }
