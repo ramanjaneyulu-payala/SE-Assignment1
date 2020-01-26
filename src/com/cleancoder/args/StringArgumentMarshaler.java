@@ -16,9 +16,9 @@ public class StringArgumentMarshaler implements ArgumentMarshaler {
     }
   }
 
-  public static String getValue(ArgumentMarshaler am) {
-    if (am != null && am instanceof StringArgumentMarshaler)
-      return ((StringArgumentMarshaler) am).stringValue;
+  public static String getValue(ArgumentMarshaler argumentMarshaler) {
+    if (argumentMarshaler != null && argumentMarshaler instanceof StringArgumentMarshaler)
+      return ((StringArgumentMarshaler) argumentMarshaler).stringValue;
     else
       return "";
   }

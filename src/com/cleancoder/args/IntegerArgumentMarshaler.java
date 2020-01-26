@@ -19,9 +19,9 @@ public class IntegerArgumentMarshaler implements ArgumentMarshaler {
     }
   }
 
-  public static int getValue(ArgumentMarshaler am) {
-    if (am != null && am instanceof IntegerArgumentMarshaler)
-      return ((IntegerArgumentMarshaler) am).intValue;
+  public static int getValue(ArgumentMarshaler argumentMarshaler) {
+    if (argumentMarshaler != null && argumentMarshaler instanceof IntegerArgumentMarshaler)
+      return ((IntegerArgumentMarshaler) argumentMarshaler).intValue;
     else
       return 0;
   }

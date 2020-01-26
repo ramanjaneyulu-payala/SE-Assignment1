@@ -24,9 +24,9 @@ public class MapArgumentMarshaler implements ArgumentMarshaler {
     }
   }
 
-  public static Map<String, String> getValue(ArgumentMarshaler am) {
-    if (am != null && am instanceof MapArgumentMarshaler)
-      return ((MapArgumentMarshaler) am).map;
+  public static Map<String, String> getValue(ArgumentMarshaler argumentMarshaler) {
+    if (argumentMarshaler != null && argumentMarshaler instanceof MapArgumentMarshaler)
+      return ((MapArgumentMarshaler) argumentMarshaler).map;
     else
       return new HashMap<>();
   }

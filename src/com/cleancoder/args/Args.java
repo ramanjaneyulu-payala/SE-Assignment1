@@ -22,25 +22,28 @@ public class Args {
       if (element.length() > 0)
         parseSchemaElement(element.trim());
   }
-
+  private ArgumentMarshaler parseSchemaElementObject(String elementTail, char elementId)throws ArgsException{
+      if (elementTail.equals("*"))
+      return new StringArgumentMarshaler();
+    else if (elementTail.equals("#"))
+      return new IntegerArgumentMarshaler();
+    else if (elementTail.equals("##"))
+      return new DoubleArgumentMarshaler();
+    else if (elementTail.equals("[*]"))
+      return new StringArrayArgumentMarshaler();
+    else if (elementTail.equals("&"))
+      return new MapArgumentMarshaler();
+    else
+      throw new ArgsException(INVALID_ARGUMENT_FORMAT, elementId, elementTail);
+  }
   private void parseSchemaElement(String element) throws ArgsException {
     char elementId = element.charAt(0);
     String elementTail = element.substring(1);
     validateSchemaElementId(elementId);
     if (elementTail.length() == 0)
       marshalers.put(elementId, new BooleanArgumentMarshaler());
-    else if (elementTail.equals("*"))
-      marshalers.put(elementId, new StringArgumentMarshaler());
-    else if (elementTail.equals("#"))
-      marshalers.put(elementId, new IntegerArgumentMarshaler());
-    else if (elementTail.equals("##"))
-      marshalers.put(elementId, new DoubleArgumentMarshaler());
-    else if (elementTail.equals("[*]"))
-      marshalers.put(elementId, new StringArrayArgumentMarshaler());
-    else if (elementTail.equals("&"))
-      marshalers.put(elementId, new MapArgumentMarshaler());
     else
-      throw new ArgsException(INVALID_ARGUMENT_FORMAT, elementId, elementTail);
+      marshalers.put(elementId,parseSchemaElementObject(elementTail,elementId));
   }
 
   private void validateSchemaElementId(char elementId) throws ArgsException {
@@ -62,17 +65,17 @@ public class Args {
 
   private void parseArgumentCharacters(String argChars) throws ArgsException {
     for (int i = 0; i < argChars.length(); i++)
-      parseArgumentCharacter(argChars.charAt(i));
+      parseArgumentEachCharacter(argChars.charAt(i));
   }
 
-  private void parseArgumentCharacter(char argChar) throws ArgsException {
-    ArgumentMarshaler m = marshalers.get(argChar);
-    if (m == null) {
+  private void parseArgumentEachCharacter(char argChar) throws ArgsException {
+    ArgumentMarshaler argumentMarshaler = marshalers.get(argChar);
+    if (argumentMarshaler == null) {
       throw new ArgsException(UNEXPECTED_ARGUMENT, argChar, null);
     } else {
       argsFound.add(argChar);
       try {
-        m.set(currentArgument);
+        argumentMarshaler.set(currentArgument);
       } catch (ArgsException e) {
         e.setErrorArgumentId(argChar);
         throw e;
