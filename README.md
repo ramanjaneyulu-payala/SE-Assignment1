@@ -17,13 +17,13 @@ By cleaning the code it should be readable, understandable and optimize the purp
 4. Added test cases that will ensures the functionality of the code behaves as expected and avoids unhandled exceptions.
    
 ### Requirements and Execution of Test cases:
-####commands:
+#### commands:
 * run 'ant compile'
 * run 'ant jar'
 * run 'java -cp build/jar/args.jar com.cleancoder.args.ArgsMain'         
 * java -cp "lib/junit-4.13.jar:lib/hamcrest-core-1.3.jar:build/jar/args.jar" ./test/com/cleancoder/args/ArgsTest.java testCreateWithNoSchemaOrArguments
 
-###Clean code:
+### Clean code:
 1. This code is modified in such away that it is more modular and readable.
 2. The code is self explanatory and no comments are required, naming convention is followed the names itself depicts
    the purpose of variables, methods, classes.
