@@ -75,7 +75,14 @@ public class Args {
     } else {
       argsFound.add(argChar);
       try {
-        argumentMarshaler.set(currentArgument);
+           if(argumentMarshaler instanceof BooleanArgumentMarshaler){
+              argumentMarshaler.set(null);
+           }
+           else if(currentArgument.hasNext()){
+             argumentMarshaler.set(currentArgument.next());
+           }
+           else
+             argumentMarshaler.set("NO_VALUE");
       } catch (ArgsException e) {
         e.setErrorArgumentId(argChar);
         throw e;
@@ -91,27 +98,27 @@ public class Args {
     return currentArgument.nextIndex();
   }
 
-  public boolean getBoolean(char arg) {
+  public boolean getBoolean(char arg) throws ArgsException {
     return BooleanArgumentMarshaler.getValue(marshalers.get(arg));
   }
 
-  public String getString(char arg) {
+  public String getString(char arg) throws ArgsException{
     return StringArgumentMarshaler.getValue(marshalers.get(arg));
   }
 
-  public int getInt(char arg) {
+  public int getInt(char arg) throws ArgsException{
     return IntegerArgumentMarshaler.getValue(marshalers.get(arg));
   }
 
-  public double getDouble(char arg) {
+  public double getDouble(char arg) throws ArgsException{
     return DoubleArgumentMarshaler.getValue(marshalers.get(arg));
   }
 
-  public String[] getStringArray(char arg) {
+  public String[] getStringArray(char arg)throws ArgsException {
     return StringArrayArgumentMarshaler.getValue(marshalers.get(arg));
   }
 
-  public Map<String, String> getMap(char arg) {
+  public Map<String, String> getMap(char arg) throws ArgsException{
     return MapArgumentMarshaler.getValue(marshalers.get(arg));
   }
 }

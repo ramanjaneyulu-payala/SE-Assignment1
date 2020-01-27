@@ -10,24 +10,25 @@ import static com.cleancoder.args.ArgsException.ErrorCode.*;
 public class MapArgumentMarshaler implements ArgumentMarshaler {
   private Map<String, String> map = new HashMap<>();
 
-  public void set(Iterator<String> currentArgument) throws ArgsException {
-    try {
-      String[] mapEntries = currentArgument.next().split(",");
-      for (String entry : mapEntries) {
-        String[] entryComponents = entry.split(":");
-        if (entryComponents.length != 2)
-          throw new ArgsException(MALFORMED_MAP);
-        map.put(entryComponents[0], entryComponents[1]);
+  public void set(String currentArgument) throws ArgsException {
+      try {
+        String[] mapEntries = currentArgument.split(",");
+        for (String entry : mapEntries) {
+          String[] entryComponents = entry.split(":");
+          if (entryComponents.length != 2)
+            throw new ArgsException(MALFORMED_MAP);
+          map.put(entryComponents[0], entryComponents[1]);
+        }
+      } catch (NoSuchElementException e) {
+        throw new ArgsException(MISSING_MAP);
       }
-    } catch (NoSuchElementException e) {
-      throw new ArgsException(MISSING_MAP);
     }
-  }
 
-  public static Map<String, String> getValue(ArgumentMarshaler argumentMarshaler) {
+
+  public static Map<String, String> getValue(ArgumentMarshaler argumentMarshaler) throws ArgsException{
     if (argumentMarshaler != null && argumentMarshaler instanceof MapArgumentMarshaler)
       return ((MapArgumentMarshaler) argumentMarshaler).map;
     else
-      return new HashMap<>();
+      throw new ArgsException(INVALID_MAPARGS_EXPECTED);
   }
 }

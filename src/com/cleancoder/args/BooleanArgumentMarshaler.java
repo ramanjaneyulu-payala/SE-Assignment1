@@ -5,14 +5,14 @@ import java.util.Iterator;
 public class BooleanArgumentMarshaler implements ArgumentMarshaler {
   private boolean booleanValue = false;
 
-  public void set(Iterator<String> currentArgument) throws ArgsException {
+  public void set(String currentArgument) throws ArgsException {
     booleanValue = true;
   }
 
-  public static boolean getValue(ArgumentMarshaler argumentMarshaler) {
-    if (argumentMarshaler != null && argumentMarshaler instanceof BooleanArgumentMarshaler)
+  public static boolean getValue(ArgumentMarshaler argumentMarshaler) throws  ArgsException{
+    if (argumentMarshaler instanceof BooleanArgumentMarshaler)
       return ((BooleanArgumentMarshaler) argumentMarshaler).booleanValue;
     else
-      return false;
+    throw new ArgsException(ArgsException.ErrorCode.INVALID_BOOLEAN_EXPECTED);
   }
 }

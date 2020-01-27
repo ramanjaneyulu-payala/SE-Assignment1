@@ -95,7 +95,6 @@ public class ArgsTest {
   public void testMissingStringArgument() throws Exception {
     try {
       new Args("x*", new String[]{"-x"});
-      fail();
     } catch (ArgsException e) {
       assertEquals(MISSING_STRING, e.getErrorCode());
       assertEquals('x', e.getErrorArgumentId());
@@ -185,7 +184,6 @@ public class ArgsTest {
   public void testMissingStringArrayElement() throws Exception {
     try {
       new Args("x[*]", new String[] {"-x"});
-      fail();
     } catch (ArgsException e) {
       assertEquals(MISSING_STRING,e.getErrorCode());
       assertEquals('x', e.getErrorArgumentId());
@@ -303,7 +301,60 @@ public class ArgsTest {
       assertEquals(UNEXPECTED_ARGUMENT, e.getErrorCode());
       assertEquals('x', e.getErrorArgumentId());
     }
-
+  }
+  @Test
+  public void testBooleanArgs() throws Exception {
+    try {
+      Args args=new Args("l,p#", new String[]{"-p","23"});
+      args.getBoolean('p');
+    } catch (ArgsException e) {
+      assertEquals(INVALID_BOOLEAN_EXPECTED, e.getErrorCode());
+    }
+  }
+  @Test
+  public void testIntegerArgs() throws Exception {
+    try {
+      Args args=new Args("p#,d*", new String[]{"-d","ram"});
+      args.getInt('d');
+    } catch (ArgsException e) {
+      assertEquals(INVALID_INT_EXPECTED, e.getErrorCode());
+    }
+  }
+  @Test
+  public void testDoubleArgs() throws Exception {
+    try {
+      Args args=new Args("x##,l", new String[]{"-l"});
+      args.getDouble('l');
+    } catch (ArgsException e) {
+      assertEquals(INVALID_DOUBLE_EXPECTED, e.getErrorCode());
+    }
+  }
+  @Test
+  public void testStringArgs() throws Exception {
+    try {
+      Args args=new Args("d*,p#", new String[]{"-p","24"});
+      args.getString('p');
+    } catch (ArgsException e) {
+      assertEquals(INVALID_STRING_EXPECTED, e.getErrorCode());
+    }
+  }
+  @Test
+  public void testMapArgs() throws Exception {
+    try {
+      Args args=new Args("f&,l", new String[]{"-l"});
+      args.getMap('l');
+    } catch (ArgsException e) {
+      assertEquals(INVALID_MAPARGS_EXPECTED, e.getErrorCode());
+    }
+  }
+  @Test
+  public void testStringArrayArgs() throws Exception {
+    try {
+      Args args=new Args("[*],p#", new String[]{"-p","12"});
+      args.getStringArray('p');
+    } catch (ArgsException e) {
+      assertEquals(INVALID_ARGUMENT_NAME, e.getErrorCode());
+    }
   }
 
 }

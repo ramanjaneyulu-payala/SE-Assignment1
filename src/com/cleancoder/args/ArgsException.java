@@ -80,14 +80,42 @@ public class ArgsException extends Exception {
         return String.format("over usage of same symbol");
       case INVALID_NEGATIVE:
         return String.format("can't use negative number");
+      case INVALID_BOOLEAN_EXPECTED:
+        return String.format("Expected value should be boolean");
+      case INVALID_INT_EXPECTED:
+        return String.format("Expected value should be int");
+      case INVALID_DOUBLE_EXPECTED:
+        return String.format("Expected value should be Double");
+      case INVALID_MAPARGS_EXPECTED:
+        return String.format("Expected value should be map values");
+      case INVALID_STRING_EXPECTED:
+        return String.format("Expected value should be String");
+      case INVALID_STRING_LIST_EXPECTED:
+        return String.format("Expected value should be List of Strings");
     }
     return "";
   }
 
   public enum ErrorCode {
-    OK, INVALID_ARGUMENT_FORMAT, UNEXPECTED_ARGUMENT, INVALID_ARGUMENT_NAME,
+    OK,
+    INVALID_ARGUMENT_FORMAT,
+    UNEXPECTED_ARGUMENT,
+    INVALID_ARGUMENT_NAME,
     MISSING_STRING,
-    MISSING_INTEGER, INVALID_INTEGER,
-    MISSING_DOUBLE, MALFORMED_MAP, MISSING_MAP, INVALID_DOUBLE,
-    INVALID_EXTRA_ARGS, INVALID_OVER_USAGE, INVALID_NEGATIVE}
+    MISSING_INTEGER,
+    INVALID_INTEGER,
+    MISSING_DOUBLE,
+    MALFORMED_MAP,
+    MISSING_MAP,
+    INVALID_DOUBLE,
+    INVALID_EXTRA_ARGS,
+    INVALID_OVER_USAGE,
+    INVALID_NEGATIVE ,
+    INVALID_BOOLEAN_EXPECTED,
+    INVALID_INT_EXPECTED,
+    INVALID_DOUBLE_EXPECTED,
+    INVALID_STRING_EXPECTED,
+    INVALID_MAPARGS_EXPECTED,
+    INVALID_STRING_LIST_EXPECTED
+  }
 }

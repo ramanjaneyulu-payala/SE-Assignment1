@@ -7,22 +7,27 @@ import java.util.*;
 public class IntegerArgumentMarshaler implements ArgumentMarshaler {
   private int intValue = 0;
 
-  public void set(Iterator<String> currentArgument) throws ArgsException {
+  public void set(String currentArgument) throws ArgsException {
+    if(currentArgument!="NO_VALUE"){
     String parameter = null;
     try {
-      parameter = currentArgument.next();
+      parameter = currentArgument;
       intValue = Integer.parseInt(parameter);
-    } catch (NoSuchElementException e) {
-      throw new ArgsException(MISSING_INTEGER);
     } catch (NumberFormatException e) {
       throw new ArgsException(INVALID_INTEGER, parameter);
     }
+    }
+    else{
+      throw new ArgsException(MISSING_INTEGER);
+    }
+
   }
 
-  public static int getValue(ArgumentMarshaler argumentMarshaler) {
+  public static int getValue(ArgumentMarshaler argumentMarshaler) throws ArgsException{
     if (argumentMarshaler != null && argumentMarshaler instanceof IntegerArgumentMarshaler)
       return ((IntegerArgumentMarshaler) argumentMarshaler).intValue;
     else
-      return 0;
+      throw new ArgsException(INVALID_INT_EXPECTED);
+
   }
 }
