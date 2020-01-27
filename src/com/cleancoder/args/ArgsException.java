@@ -78,6 +78,8 @@ public class ArgsException extends Exception {
         return String.format("Entered extra args.");
       case INVALID_OVER_USAGE:
         return String.format("over usage of same symbol");
+      case INVALID_NEGATIVE:
+        return String.format("can't use negative number");
     }
     return "";
   }
@@ -87,5 +89,5 @@ public class ArgsException extends Exception {
     MISSING_STRING,
     MISSING_INTEGER, INVALID_INTEGER,
     MISSING_DOUBLE, MALFORMED_MAP, MISSING_MAP, INVALID_DOUBLE,
-    INVALID_EXTRA_ARGS, INVALID_OVER_USAGE}
+    INVALID_EXTRA_ARGS, INVALID_OVER_USAGE, INVALID_NEGATIVE}
 }

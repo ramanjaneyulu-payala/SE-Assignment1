@@ -7,6 +7,7 @@ private static void settingArgs(String[] args) throws ArgsException{
   boolean logging = arg.getBoolean('l');
   int port = arg.getInt('p');
   String directory = arg.getString('d');
+//  Double average = arg.getDouble( 'f');
   executeApplication(logging, port, directory);
 }
   public static void main(String[] args) {

@@ -232,9 +232,6 @@ public class ArgsTest {
     } catch(ArgsException e){
       assertEquals(e.getErrorCode(),INVALID_EXTRA_ARGS);
     }
-//    assertTrue(args.getBoolean('x'));
-//    assertEquals("alpha", args.getString('y'));
-//    assertEquals(3, args.nextArgument());
   }
 
   @Test
@@ -244,11 +241,69 @@ public class ArgsTest {
     } catch (ArgsException e){
       assertEquals(e.getErrorCode(),INVALID_EXTRA_ARGS);
     }
-//    assertTrue(args.has('x'));
-//    assertFalse(args.has('y'));
-//    assertTrue(args.getBoolean('x'));
-//    assertFalse(args.getBoolean('y'));
-//    assertEquals(1, args.nextArgument());
+  }
+
+  @Test
+  public void testSchemaMismatchInteger() throws Exception {
+    try {
+
+      new Args("p#", new String[]{"-x", "800"});
+      fail();
+    } catch (ArgsException e) {
+      assertEquals(UNEXPECTED_ARGUMENT, e.getErrorCode());
+      assertEquals('x', e.getErrorArgumentId());
+    }
+
+  }
+
+  @Test
+  public void testSchemaMismatchBoolean() throws Exception {
+    try {
+
+      new Args("l", new String[]{"-x"});
+      fail();
+    } catch (ArgsException e) {
+      assertEquals(UNEXPECTED_ARGUMENT, e.getErrorCode());
+      assertEquals('x', e.getErrorArgumentId());
+    }
+
+  }
+
+  @Test
+  public void testSchemaMismatchString() throws Exception {
+    try {
+
+      new Args("d*", new String[]{"-x","ram"});
+      fail();
+    } catch (ArgsException e) {
+      assertEquals(UNEXPECTED_ARGUMENT, e.getErrorCode());
+      assertEquals('x', e.getErrorArgumentId());
+    }
+
+  }
+  @Test
+  public void testSchemaMismatchDouble() throws Exception {
+    try {
+
+      new Args("f##", new String[]{"-x","23.5"});
+      fail();
+    } catch (ArgsException e) {
+      assertEquals(UNEXPECTED_ARGUMENT, e.getErrorCode());
+      assertEquals('x', e.getErrorArgumentId());
+    }
+
+  }
+  @Test
+  public void testSchemaMismatchMap() throws Exception {
+    try {
+
+      new Args("l&", new String[]{"-x","key1:val1"});
+      fail();
+    } catch (ArgsException e) {
+      assertEquals(UNEXPECTED_ARGUMENT, e.getErrorCode());
+      assertEquals('x', e.getErrorArgumentId());
+    }
+
   }
 
 }
